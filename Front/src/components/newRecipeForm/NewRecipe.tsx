@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { copyJsxObj, recipeConsructor } from '../helpers/formHelpers';
+import { copyJsxObj, recipeConsructor } from '../../helpers/formHelpers';
 import IngredientInput from './IngredientInput';
 import StepSection from './StepSection';
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { copyJsxObj } from '../helpers/formHelpers';
+import { copyJsxObj } from '../../helpers/formHelpers';
 import StepInput from './StepInput';
 
 export default function StepSection({

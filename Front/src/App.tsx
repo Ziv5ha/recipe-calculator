@@ -1,5 +1,5 @@
 import React from 'react';
-import NewRecipe from './components/NewRecipe';
+import NewRecipe from './components/newRecipeForm/NewRecipe';
 
 function App() {
   return (
