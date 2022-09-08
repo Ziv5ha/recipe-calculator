@@ -77,6 +77,16 @@ export default function NewRecipe() {
       ),
     });
   }, []);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (e.target instanceof HTMLFormElement) {
+      const formData = new FormData(e.target);
+      const inputObj = Object.fromEntries(formData);
+      console.log(recipeConsructor(inputObj));
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <h2>Add new recipe</h2>
@@ -98,6 +108,7 @@ export default function NewRecipe() {
           + new step
         </button>
       </ol>
+      <button type='submit'>Submit</button>
     </form>
   );
 }
