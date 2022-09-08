@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { copyJsxObj, recipeConsructor } from '../helpers/formHelpers';
 import IngredientInput from './IngredientInput';
+import StepSection from './StepSection';
 
 export default function NewRecipe() {
   const [ingredientsInputs, setIngredientsInputs] = useState<{
     [key: number]: JSX.Element;
   }>({});
+  const [stepsSections, setStepsSections] = useState<{
+    [key: number]: JSX.Element;
+  }>({});
+
   const addIngredient = () => {
     setIngredientsInputs((prev) => {
       const prevCopy = copyJsxObj(prev);
@@ -31,6 +36,31 @@ export default function NewRecipe() {
     });
   };
 
+  const addStepSection = () => {
+    setStepsSections((prev) => {
+      const prevCopy = copyJsxObj(prev);
+      let i =
+        Math.max(...Object.keys(prevCopy).map((numStr) => Number(numStr))) + 1;
+      if (i === -Infinity) i = 1;
+
+      prevCopy[i] = (
+        <StepSection
+          index={i}
+          removeStep={removeStep}
+          key={`stepSection #${i}`}
+        />
+      );
+      return prevCopy;
+    });
+  };
+  const removeStep = (i: number): void => {
+    setStepsSections((prev) => {
+      const prevCopy = copyJsxObj(prev);
+      delete prevCopy[i];
+      return prevCopy;
+    });
+  };
+
   useEffect(() => {
     setIngredientsInputs({
       1: (
@@ -39,6 +69,11 @@ export default function NewRecipe() {
           removeIngredient={removeIngredient}
           key={'ingredient #1'}
         />
+      ),
+    });
+    setStepsSections({
+      1: (
+        <StepSection index={1} removeStep={removeStep} key={'stepSection #1'} />
       ),
     });
   }, []);
@@ -58,6 +93,11 @@ export default function NewRecipe() {
         </button>
       </ul>
       <ol>
+        {Object.values(stepsSections)}
+        <button type='button' onClick={addStepSection}>
+          + new step
+        </button>
+      </ol>
     </form>
   );
 }
